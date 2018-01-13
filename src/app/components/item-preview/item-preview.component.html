@@ -1,0 +1,31 @@
+<h2>Product created successfully!</h2>
+
+<h3>Product summary</h3>
+<dl>
+  <dt>Title:</dt>
+  <dd>{{ createdItem.title }}</dd>
+
+  <dt>Description:</dt>
+  <dd>{{ createdItem.description }}</dd>
+
+  <dt>Width:</dt>
+  <dd>{{ createdItem.width }}</dd>
+
+  <dt>Height:</dt>
+  <dd>{{ createdItem.height }}</dd>
+
+  <dt>In stock:</dt>
+  <dd>{{ createdItem.in_stock }}</dd>
+
+  <dt>Category:</dt>
+  <dd>{{ createdItem.category }}</dd>
+
+  <h4>Available variants:</h4>
+  <div *ngFor="let variant of createdItem.variants">
+    <dt>{{ variant.sku }}</dt>
+    <dl>
+      <span>Price: {{ variant.price }}</span>, 
+      <span>Quantity: {{ variant.quantity }}</span>
+    </dl>
+  </div>
+</dl>

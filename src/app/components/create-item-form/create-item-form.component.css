@@ -1,0 +1,48 @@
+.form-group.required label::after {
+  content:"*";
+  color:red;
+}
+
+.error-msg {
+  color: red;
+}
+
+.checkbox label {
+  font-weight: bold;
+  padding-left: 0;
+}
+
+.checkbox input[type="checkbox"] {
+  position: static;
+  margin-left: 5px;
+}
+
+.variant-box {
+  margin-right: 0;
+  margin-left: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: none;
+  padding: 15px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.variant-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #959595;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0;
+}
+
+.variant-remove-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  color: #959595;
+  background: transparent;
+  border: none;
+}

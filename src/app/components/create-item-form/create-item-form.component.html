@@ -1,0 +1,159 @@
+<h2>Create new product</h2>
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+  <div class="form-group required">
+    <label for="title">Title:</label>
+    <input 
+      type="text" 
+      id="title" 
+      class="form-control" 
+      formControlName="title"
+      required>
+      <p 
+        *ngIf="!form.controls['title'].valid" 
+        class="error-msg">
+        Title is required
+      </p>
+  </div>
+
+  <div class="form-group required">
+    <label for="desc">Description:</label>
+    <textarea 
+      id="desc" 
+      class="form-control" 
+      formControlName="description"></textarea>
+      <p 
+        *ngIf="!form.controls['description'].valid" 
+        class="error-msg">
+        Description is required
+      </p>
+  </div>
+
+  <div class="form-group">
+    <label for="width">Width:</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="width" 
+      formControlName="width">
+  </div>
+
+  <div class="form-group">
+    <label for="height">Height:</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="height" 
+      formControlName="height">
+  </div>
+
+  <div class="checkbox">
+    <label for="inStock">
+      In stock:
+      <input 
+        type="checkbox"
+        id="inStock" 
+        [(ngModel)]="inStock"
+        formControlName="in_stock">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Choose category:</label>
+    <select id="category" class="form-control">
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.label }}
+      </option>
+    </select>
+  </div>
+
+  <h3>Available variants</h3>
+  <div 
+    formArrayName="variants"
+    *ngFor="let variant of form.controls.variants.controls; let i = index">
+
+    <div [formGroupName]="i" class="variant-box">
+      <h4 class="variant-title">Variant {{ i + 1 }}</h4>
+      <button 
+        class="variant-remove-btn"
+        *ngIf="form.controls.variants.controls.length > 1" 
+        (click)="removeVariant(i)">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </button>
+      <div class="form-group">
+        <label for="sku">SKU:</label>
+        <input 
+          type="text" 
+          id="sku" 
+          formControlName="sku"
+          class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input 
+          type="text" 
+          id="price" 
+          currencyMask
+          [options]="{ align: 'left', prefix: '', thousands: '', decimal: '.' }"
+          formControlName="price"
+          class="form-control">
+      </div>
+      <div class="form-group" [ngClass]="{'required': inStock}">
+        <label for="quantity">Quantity:</label>
+        <input 
+          type="number" 
+          id="quantity" 
+          formControlName="quantity"
+          [required]="inStock"
+          class="form-control">
+          <p 
+            *ngIf="!variantsFormGroup[i].controls['quantity'].valid" 
+            class="error-msg">
+            Quantity is required
+          </p>
+      </div>
+    </div>
+  </div>
+
+  <div [formGroup]="newVariant" class="variant-box">
+    <h4 class="variant-title">Add new variant</h4>
+    <a class="btn btn-link variant-remove-btn" (click)="addVariant()">+ Add variant</a>
+    <div class="form-group">
+      <label for="sku">SKU:</label>
+      <input 
+        type="text" 
+        id="newSku" 
+        formControlName="newSku"
+        class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input 
+        type="text" 
+        id="newPrice" 
+        currencyMask
+        [options]="{ align: 'left', prefix: '', thousands: '', decimal: '.' }"
+        formControlName="newPrice"
+        class="form-control">
+    </div>
+    <div class="form-group" [ngClass]="{'required': inStock}">
+      <label for="quantity">Quantity:</label>
+      <input 
+        type="number" 
+        id="newQuantity" 
+        formControlName="newQuantity"
+        [required]="inStock"
+        class="form-control">
+        <p 
+          *ngIf="!newVariant.controls['newQuantity'].valid" 
+          class="error-msg">
+          Quantity is required
+        </p>
+    </div>
+  </div>
+
+  <input 
+    type="submit" 
+    class="btn btn-primary" 
+    value="Submit Form" 
+    [disabled]="!form.valid">
+</form>
